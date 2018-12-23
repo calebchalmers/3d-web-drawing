@@ -75,11 +75,33 @@ camera.position.z = 4;
 
 var animate = function (time) {
     requestAnimationFrame(animate);
-    
-    //mesh.rotation.x = Math.sin(parseFloat(time.toString()) / 10000.0) * Math.PI;
-    mesh.rotation.y += 0.005;
-
     renderer.render(scene, camera);
 };
 
 animate();
+
+var isMouseDown = false;
+var prevMouseX = 0;
+var prevMouseY = 0;
+
+window.addEventListener('mousedown', function(event) {
+    isMouseDown = true;
+    prevMouseX = event.clientX;
+    prevMouseY = event.clientY;
+});
+window.addEventListener('mouseup', function(event) {
+    isMouseDown = false;
+});
+
+window.addEventListener('mousemove', function(event) {
+    if(isMouseDown) {
+        var dX = event.clientX - prevMouseX;
+        var dY = event.clientY - prevMouseY;
+
+        mesh.rotation.x += dY / 200.0;
+        mesh.rotation.y += dX / 200.0;
+
+        prevMouseX += dX;
+        prevMouseY += dY;
+    }
+});

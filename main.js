@@ -47,6 +47,19 @@ for(var i = 1; i < sides - 1; i++) {
     indices.push(lssvi, lssvi + i+1, lssvi + i); // back
 }
 
+// lights
+var light = new THREE.AmbientLight(0xf000f0, 0.2)
+scene.add(light);
+
+var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
+scene.add(directionalLight);
+directionalLight.position.set(-1, 1, 1);
+
+var directionalLight2 = new THREE.DirectionalLight(0xff0000, 0.2)
+scene.add(directionalLight2);
+directionalLight2.position.set(1, -1, -1);
+
+
 
 var geometry = new THREE.BufferGeometry();
 
@@ -54,7 +67,7 @@ geometry.setIndex(indices);
 geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 geometry.computeVertexNormals();
 
-var material = new THREE.MeshNormalMaterial();
+var material = new THREE.MeshPhongMaterial();
 var mesh = new THREE.Mesh( geometry, material );
 scene.add(mesh);
 

@@ -55,18 +55,18 @@ geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
 geometry.computeVertexNormals();
 
 var material = new THREE.MeshNormalMaterial();
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
 
 camera.position.z = 4;
 
 var animate = function (time) {
-    requestAnimationFrame( animate );
+    requestAnimationFrame(animate);
     
-    //cube.rotation.x = Math.sin(parseFloat(time.toString()) / 10000.0) * Math.PI;
-    cube.rotation.y += 0.005;
+    //mesh.rotation.x = Math.sin(parseFloat(time.toString()) / 10000.0) * Math.PI;
+    mesh.rotation.y += 0.005;
 
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 };
 
 animate();

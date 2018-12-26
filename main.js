@@ -116,3 +116,10 @@ window.addEventListener('mousemove', function(event) {
         prevMouseY += dY;
     }
 });
+
+window.addEventListener('resize', function(event) {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}, false);

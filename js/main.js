@@ -51,12 +51,15 @@ function createGeometry(vertices) {
 
 // scene and stuff
 var scene = new THREE.Scene();
+
 var camera = new THREE.PerspectiveCamera(40, window.innerWidth/window.innerHeight, 0.1, 1000);
 camera.position.z = 4;
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+var controls = new THREE.OrbitControls(camera);
 
 // lights
 var light = new THREE.AmbientLight(0xf000f0, 0.2)
@@ -72,7 +75,6 @@ directionalLight2.position.set(1, -1, -1);
 
 
 
-
 // add custom mesh to scene
 var customGeometry = createGeometry([]);
 var material = new THREE.MeshPhongMaterial();
@@ -81,41 +83,15 @@ scene.add(customMesh);
 
 
 // render loop
-(function animate(time) {
+function animate(time) {
     requestAnimationFrame(animate);
+
+    controls.update();
     renderer.render(scene, camera);
-})(0);
+};
+animate();
 
 
-
-
-// mouse interaction
-var isMouseDown = false;
-var prevMouseX = 0;
-var prevMouseY = 0;
-
-window.addEventListener('mousedown', function(event) {
-    isMouseDown = true;
-    prevMouseX = event.clientX;
-    prevMouseY = event.clientY;
-});
-
-window.addEventListener('mouseup', function(event) {
-    isMouseDown = false;
-});
-
-window.addEventListener('mousemove', function(event) {
-    if(isMouseDown) {
-        var dX = event.clientX - prevMouseX;
-        var dY = event.clientY - prevMouseY;
-
-        customMesh.rotation.x += dY / 200.0;
-        customMesh.rotation.y += dX / 200.0;
-
-        prevMouseX += dX;
-        prevMouseY += dY;
-    }
-});
 
 window.addEventListener('resize', function(event) {
     camera.aspect = window.innerWidth / window.innerHeight;
